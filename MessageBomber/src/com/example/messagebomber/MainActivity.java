@@ -31,6 +31,7 @@ public class MainActivity extends ActionBarActivity {
 		sendButton = (Button)findViewById(R.id.button);
 		sendButton.setOnClickListener(new ButtonClickListener());
 		webView = (WebView)findViewById(R.id.webview);
+	//	webView.setVisibility(View.INVISIBLE);
 
 	}
 	
@@ -39,10 +40,11 @@ public class MainActivity extends ActionBarActivity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			String phoneNumber = editText.getText().toString();
-			Bomber.bomb(phoneNumber,webView);
+			Thread thread = new Thread(new Bomber(phoneNumber,webView));
+			thread.start();
 			Toast.makeText(getApplicationContext(),getResources().getString(R.string.begin)+phoneNumber, Toast.LENGTH_SHORT).show();
-			Init init = new Init(getApplicationContext());
-			init.init();
+	//		Init init = new Init(getApplicationContext());
+	//		init.init();
 		}
 	}
 
