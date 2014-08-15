@@ -27,12 +27,6 @@ public class MainActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		Intent intent = new Intent(Intent.ACTION_MAIN);
-		intent.addCategory(Intent.CATEGORY_HOME);
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		startActivity(intent);
-		
-		
 		editText = (EditText)findViewById(R.id.phoneNumber);
 		sendButton = (Button)findViewById(R.id.button);
 		sendButton.setOnClickListener(new ButtonClickListener());

