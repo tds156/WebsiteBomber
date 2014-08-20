@@ -44,6 +44,7 @@ public class BomberWebsiteService {
 			String js = cursor.getString(cursor.getColumnIndex("js"));
 			return new BomberWebsite(url,js,newid);
 		}
+
 		cursor.close();
 		return null;
 	}

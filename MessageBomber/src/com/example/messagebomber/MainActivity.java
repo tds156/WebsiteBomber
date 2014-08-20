@@ -1,8 +1,11 @@
 package com.example.messagebomber;
 
+import java.io.IOException;
+
 import com.example.service.Bomber;
 import com.example.service.Init;
 
+import CheckCode.CheckCode;
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,10 +44,10 @@ public class MainActivity extends ActionBarActivity {
 			// TODO Auto-generated method stub
 			String phoneNumber = editText.getText().toString();
 			Thread thread = new Thread(new Bomber(phoneNumber,webView));
+	//		CheckCode c = new CheckCode();
+	//		c.check();
 			thread.start();
 			Toast.makeText(getApplicationContext(),getResources().getString(R.string.begin)+phoneNumber, Toast.LENGTH_SHORT).show();
-	//		Init init = new Init(getApplicationContext());
-	//		init.init();
 		}
 	}
 
