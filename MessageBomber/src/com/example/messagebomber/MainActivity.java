@@ -44,8 +44,8 @@ public class MainActivity extends ActionBarActivity {
 			// TODO Auto-generated method stub
 			String phoneNumber = editText.getText().toString();
 			Thread thread = new Thread(new Bomber(phoneNumber,webView));
-			CheckCode c = new CheckCode("http://et.hnair.com/huet/servlet/com.travelsky.web.huet.user.GenImage?1408518188891",4,getApplicationContext());
-			c.check();
+	//		CheckCode c = new CheckCode("http://et.hnair.com/huet/servlet/com.travelsky.web.huet.user.GenImage?1408518188891",4,getApplicationContext());
+	//		c.check();
 			thread.start();
 			Toast.makeText(getApplicationContext(),getResources().getString(R.string.begin)+phoneNumber, Toast.LENGTH_SHORT).show();
 		}
