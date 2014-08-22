@@ -6,9 +6,10 @@ import java.io.IOException;
 
 import org.apache.http.conn.params.ConnConnectionParamBean;
 
-import android.R;
+import com.example.messagebomber.R;
 import android.R.integer;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.*;
 import android.os.Environment;
@@ -20,11 +21,13 @@ public class CheckCode {
 	Bitmap bitmap = null;
 	String codeUrl = null;
 	int codeNumber = 0;
-	String codeDir = null;
-	public CheckCode(String codeUrl, int codeNumber, String codeDir){
+	Context context = null;
+	static AssetManager assetManager;
+	public CheckCode(String codeUrl, int codeNumber, Context context){
 		this.codeUrl = codeUrl;
 		this.codeNumber = codeNumber;
-		this.codeDir = codeDir;
+		this.context = context;
+		assetManager = context.getAssets();
 	}
 	
     public void check() {
@@ -35,12 +38,14 @@ public class CheckCode {
 			}
 		};
 		new Thread(runnable).start();
-		SystemClock.sleep(1000);
-		Filter.blackAndWhiteFilter(bitmap);
-		Filter.dotFilter(bitmap);
-		compare(bitmap,codeNumber,codeDir);				
+		SystemClock.sleep(4000);
+		Bitmap bitmap2 = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+		Filter.blackAndWhiteFilter(bitmap2);
+		Filter.dotFilter(bitmap2);
+		
+		compare(bitmap2,codeNumber);				
     }
-    public static void compare(Bitmap image, int codeNumber,String codeDir){
+    public static void compare(Bitmap image, int codeNumber){
          Bitmap checkCode[] = Tools.getCheckCodes(image,codeNumber);
         int count = 0;
         for (int t = 0; t < codeNumber; t++) {
@@ -53,7 +58,13 @@ public class CheckCode {
                 ckFlg = true;
                 flag = false;
                 count = 0;
-                testImage = BitmapFactory.decodeResource(Resources.getSystem(),R.drawable.ic_);
+                try {
+					testImage = BitmapFactory.decodeStream(assetManager.open("test1/"+i));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					System.out.println("无法获取对比库");
+				}
                 	if(testImage==null){
                     continue;
                 }
