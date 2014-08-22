@@ -65,11 +65,42 @@ public class Tools {
         int array[] = new int[2*numb+1];
     	int height = image.getHeight();
         array[0] = 0;
+        saveBitmap(image, "test.bmp");
         for(int i=0;i<numb;i++){
         	array[2*i+1] = Tools.getStart(array[2*i], image);
         	array[2*i+2] = Tools.getEnd(array[2*i+1], image);
+        	System.out.println(array[2*i+1]+"  "+array[2*i+2]);
         	checkCode[i] = Bitmap.createBitmap(image, array[2*i+1], 0, array[2*i+2]-array[2*i+1], height);
         }
         return checkCode;
     }
+	public static void saveBitmap(Bitmap bitmap,String picName) {; 
+		File f = new File("/sdcard/", picName); 
+		if (f.exists()) { 
+		f.delete(); 
+		} 
+		try { 
+		FileOutputStream out = new FileOutputStream(f); 
+		bitmap.compress(Bitmap.CompressFormat.PNG, 90, out); 
+		out.flush(); 
+		out.close();
+		} catch (FileNotFoundException e) { 
+		// TODO Auto-generated catch block 
+		e.printStackTrace(); 
+		} catch (IOException e) { 
+		// TODO Auto-generated catch block 
+		e.printStackTrace(); 
+		} 
+		}
+
+
+	public static void copy(Bitmap bitmap2, Bitmap bitmap) {
+		// TODO Auto-generated method stub
+		for(int i = 0;i<bitmap.getHeight();i++){
+			for(int j = 0;j<bitmap.getWidth();j++){
+				bitmap2.setPixel(j, i, bitmap.getPixel(j, i));
+			}
+			
+		}
+	} 
 }

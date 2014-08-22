@@ -3,6 +3,7 @@ package CheckCode;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.apache.http.conn.params.ConnConnectionParamBean;
 
@@ -39,10 +40,15 @@ public class CheckCode {
 		};
 		new Thread(runnable).start();
 		SystemClock.sleep(4000);
+		SystemClock.sleep(4000);
+		SystemClock.sleep(4000);
+		Tools.saveBitmap(bitmap, "firstDownload.bmp");
 		Bitmap bitmap2 = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+		Tools.copy(bitmap2,bitmap);
+		Tools.saveBitmap(bitmap2, "editable.bmp");
 		Filter.blackAndWhiteFilter(bitmap2);
 		Filter.dotFilter(bitmap2);
-		
+		Tools.saveBitmap(bitmap2, "afterChanged.bmp");
 		compare(bitmap2,codeNumber);				
     }
     public static void compare(Bitmap image, int codeNumber){
