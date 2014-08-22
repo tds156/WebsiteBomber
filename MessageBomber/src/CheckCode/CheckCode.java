@@ -6,29 +6,44 @@ import java.io.IOException;
 
 import org.apache.http.conn.params.ConnConnectionParamBean;
 
+import android.R;
+import android.R.integer;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.*;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.SystemClock;
 public class CheckCode {
 	
 	static DownloadImage di = new DownloadImage();
 	Bitmap bitmap = null;
+	String codeUrl = null;
+	int codeNumber = 0;
+	String codeDir = null;
+	public CheckCode(String codeUrl, int codeNumber, String codeDir){
+		this.codeUrl = codeUrl;
+		this.codeNumber = codeNumber;
+		this.codeDir = codeDir;
+	}
+	
     public void check() {
-		new Runnable() {
+    	Runnable runnable = new Runnable() {		
 			public void run() {
-				// TODO Auto-generated method stub
-				di.downFiletoDecive("http://www.chinagwy.net/Common/DadomImage.aspx", bitmap);
+				bitmap = di.downFiletoDecive(codeUrl);
 				System.out.println("运行过");
 			}
 		};
-        Filter.blackAndWhiteFilter(bitmap);
-        Filter.dotFilter(bitmap);
-        compare(bitmap);      
+		new Thread(runnable).start();
+		SystemClock.sleep(1000);
+		Filter.blackAndWhiteFilter(bitmap);
+		Filter.dotFilter(bitmap);
+		compare(bitmap,codeNumber,codeDir);				
     }
-    public static void compare(Bitmap image){
-         Bitmap checkCode[] = Tools.getCheckCodes(image,6);
+    public static void compare(Bitmap image, int codeNumber,String codeDir){
+         Bitmap checkCode[] = Tools.getCheckCodes(image,codeNumber);
         int count = 0;
-        for (int t = 0; t < 6; t++) {
+        for (int t = 0; t < codeNumber; t++) {
             boolean ckFlg = false;
             boolean flag = false;
             int num=-1;
@@ -38,7 +53,7 @@ public class CheckCode {
                 ckFlg = true;
                 flag = false;
                 count = 0;
-     //           testImage = di.readImage("/home/june/CheckCode/CheckCode/"+ i+".bmp");
+                testImage = BitmapFactory.decodeResource(Resources.getSystem(),R.drawable.ic_);
                 	if(testImage==null){
                     continue;
                 }

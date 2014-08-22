@@ -41,7 +41,7 @@ public class Bomber extends Thread{
 		while(i<data.js.length){
 			bomb(webView, data.url[i]);
 			try {
-				sleep(30000);
+				sleep(10000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

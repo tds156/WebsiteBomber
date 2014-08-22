@@ -26,8 +26,9 @@ import android.widget.Toast;
 
 public class DownloadImage extends Thread{
 
-	public Bitmap downFiletoDecive(String url, Bitmap bitmap) {
+	public Bitmap downFiletoDecive(String url) {
 
+		Bitmap bitmap = null;
 		try {
 			bitmap = BitmapFactory.decodeStream(getImageStream(url));
 		} catch (Exception e) {
