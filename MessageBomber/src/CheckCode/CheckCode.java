@@ -51,9 +51,10 @@ public class CheckCode {
 		Tools.saveBitmap(bitmap2, "afterChanged.bmp");
 		compare(bitmap2,codeNumber);				
     }
-    public static void compare(Bitmap image, int codeNumber){
+    public static String compare(Bitmap image, int codeNumber){
          Bitmap checkCode[] = Tools.getCheckCodes(image,codeNumber);
         int count = 0;
+        String code = "";
         for (int t = 0; t < codeNumber; t++) {
             boolean ckFlg = false;
             boolean flag = false;
@@ -64,12 +65,20 @@ public class CheckCode {
                 ckFlg = true;
                 flag = false;
                 count = 0;
+                String[] files = null;
                 try {
-					testImage = BitmapFactory.decodeStream(assetManager.open("test1/"+i));
+					files = assetManager.list("test1");
+				} catch (IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+					System.out.println("无法打开目录");
+				}
+                try {
+					testImage = BitmapFactory.decodeStream(assetManager.open("test1/"+i+".png"));
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-					System.out.println("无法获取对比库");
+					System.out.println("无法获取对比图");
 				}
                 	if(testImage==null){
                     continue;
@@ -99,8 +108,11 @@ public class CheckCode {
                 }
             }
             if (ckFlg) {
-                System.out.println("第"+(t+1)+"个数字是："+num);
+                code+=num;
+                System.out.println("第"+(t+1)+"个数字是 "+num);
             }
         }
+        System.out.println(code);
+		return code;
     }
 }
